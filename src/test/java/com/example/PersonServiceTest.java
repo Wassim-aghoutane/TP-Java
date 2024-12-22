@@ -4,9 +4,11 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class PersonServiceTest {
     @Test
@@ -44,4 +46,12 @@ public class PersonServiceTest {
         // Vérification avec AssertJ
         assertThat(adults).containsExactlyInAnyOrderElementsOf(expectedAdultPersons);
     }
+
+    @Test
+    public void testRemoveBobWithoutIterator() {
+        assertThatThrownBy(() -> PersonService.removeBobWithoutIterator())
+                .isInstanceOf(ConcurrentModificationException.class);
+    }
+
+
 }

@@ -2,7 +2,9 @@ package com.example;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -39,6 +41,20 @@ public class PersonService {
         return mockPersonsDatabase.stream()
                 .filter(isAdult)
                 .collect(Collectors.toList());
+    }
+
+    public static Set<Person> removeBobWithoutIterator() {
+        Set<Person> people = new HashSet<>();
+        people.add(Person.builder().firstName("abdeljabbar").familyName("alica").build());
+        people.add(Person.builder().firstName("abdellah").familyName("Bob").build());
+        people.add(Person.builder().firstName("zouani").familyName("Charlie").build());
+
+        for (Person person : people) {
+            if (person.getFamilyName().equals("Bob")) {
+                people.remove(person); // Erreur ici
+            }
+        }
+        return people;
     }
 
 }
