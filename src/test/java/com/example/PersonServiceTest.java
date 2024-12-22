@@ -3,9 +3,7 @@ package com.example;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.ConcurrentModificationException;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -53,5 +51,14 @@ public class PersonServiceTest {
                 .isInstanceOf(ConcurrentModificationException.class);
     }
 
+    @Test
+    public void testRemoveBobUsingIterator() {
+        Set<Person> people = new HashSet<>();
+        people.add(Person.builder().firstName("abdeljabbar").familyName("alica").build());
+        people.add(Person.builder().firstName("zouani").familyName("Charlie").build());
 
+        Set<Person> peopleWithoutBob = PersonService.removeBobUsingIterator();
+
+        assertThat(peopleWithoutBob).containsExactlyInAnyOrderElementsOf(people);
+    }
 }
