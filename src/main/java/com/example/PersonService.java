@@ -25,4 +25,20 @@ public class PersonService {
                 .collect(Collectors.toList());
     }
 
+    public static List<Person> filterAdults() {
+        List<Person> mockPersonsDatabase = Arrays.asList(
+                Person.builder().firstName("Alice").familyName("Doe").birthDate(LocalDate.of(1990, 5, 12))
+                        .address("123 Rue A").build(),
+                Person.builder().firstName("Bob").familyName("Smith").birthDate(LocalDate.of(2005, 10, 15))
+                        .address("456 Rue B").build(),
+                Person.builder().firstName("Charlie").familyName("Brown").birthDate(LocalDate.of(1985, 3, 9))
+                        .address("123 Rue A").build());
+
+        Predicate<Person> isAdult = person -> person.calculateAge() >= 18;
+
+        return mockPersonsDatabase.stream()
+                .filter(isAdult)
+                .collect(Collectors.toList());
+    }
+
 }
